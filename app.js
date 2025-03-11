@@ -7,11 +7,20 @@ const blogRoutes = require('./routes/blogRoutes');
 const app = express();
 
 // connect to mongodb & listen for requests
-const dbURI = "mongodb+srv://netninja:test1234@net-ninja-tuts-del96.mongodb.net/node-tuts";
+const PORT = process.env.PORT || 3500;
+  try {
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`)
+      console.log('hi, this worked! :)');
+    });
 
-mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(result => app.listen(3000))
-  .catch(err => console.log(err));
+    await mongoose.connect('mongodb://10.12.10.111');
+    console.log('connected to db')
+    
+  } catch (err) {
+    console.log('task failed, error:', err);
+    prosses.exit(1);
+  };
 
 // register view engine
 app.set('view engine', 'ejs');
