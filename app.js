@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const blogRoutes = require('./routes/blogRoutes');
+const {connectDB} = require('./dbhandler/handler');
 
 // express app
 const app = express();
@@ -9,23 +10,15 @@ const app = express();
 // connect to mongodb & listen for requests
 const PORT = process.env.PORT || 3500;
   try {
-    mongoose.connect('mongodb://10.12.10.111:3500');
-    console.log('connected to db')
-
-  } catch (err) {
-    console.log('connect failed, error:', err);
-    prosses.exit(1);
-
-  } try {
+    connectDB();
     app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`)
       console.log('hi, this worked! :)');
     });
 
   } catch (err) {
-    console.log("app.listen failed, error:", err);
-    process.exit(2);
-  };
+    console.log('connect failed, error:', err);
+    prosses.exit(1);
 
 // register view engine
 app.set('view engine', 'ejs');
