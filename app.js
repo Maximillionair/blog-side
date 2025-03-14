@@ -9,7 +9,7 @@ const app = express();
 // connect to mongodb & listen for requests
 const PORT = process.env.PORT || 3500;
   try {
-    mongoose.connect('mongodb://10.12.10.111');
+    mongoose.connect('mongodb://10.12.10.111:3500');
     console.log('connected to db')
 
   } catch (err) {
