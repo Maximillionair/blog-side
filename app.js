@@ -10,7 +10,6 @@ const app = express();
 // connect to mongodb & listen for requests
 
 // register view engine
-app.set('views', path.join(__dirname, "public"))
 app.set('view engine', 'ejs');
 
 // middleware & static files
