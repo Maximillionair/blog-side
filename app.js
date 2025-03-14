@@ -9,14 +9,14 @@ const app = express();
 // connect to mongodb & listen for requests
 const PORT = process.env.PORT || 3500;
   try {
-    app.listen(PORT, () => {
+    mongoose.connect('mongodb://10.12.10.111');
+    console.log('connected to db')
+
+    
+    then.app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`)
       console.log('hi, this worked! :)');
     });
-
-    await mongoose.connect('mongodb://10.12.10.111');
-    console.log('connected to db')
-    
   } catch (err) {
     console.log('task failed, error:', err);
     prosses.exit(1);
