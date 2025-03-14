@@ -19,7 +19,7 @@ const PORT = process.env.PORT || 3500;
   } catch (err) {
     console.log('connect failed, error:', err);
     prosses.exit(1);
-
+  };
 // register view engine
 app.set('view engine', 'ejs');
 
