@@ -12,14 +12,19 @@ const PORT = process.env.PORT || 3500;
     mongoose.connect('mongodb://10.12.10.111');
     console.log('connected to db')
 
-    
-    then.app.listen(PORT, () => {
+  } catch (err) {
+    console.log('connect failed, error:', err);
+    prosses.exit(1);
+
+  } try {
+    app.listen(PORT, () => {
       console.log(`Server is running on http://localhost:${PORT}`)
       console.log('hi, this worked! :)');
     });
+
   } catch (err) {
-    console.log('task failed, error:', err);
-    prosses.exit(1);
+    console.log("app.listen failed, error:", err);
+    process.exit(2);
   };
 
 // register view engine
