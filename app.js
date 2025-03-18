@@ -31,7 +31,7 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-router.get("/register", (req, res) => {
+app.get("/register", (req, res) => {
   res.render("register");
 });
 
