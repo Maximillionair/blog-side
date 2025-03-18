@@ -19,7 +19,7 @@ const registerUser = async (req, res) => {
     }
     const user = new User({ name, email, password,});
     await user.save();
-    res.redirect("/login");
+    res.redirect("auth/login");
   } catch (error) {
     res.status(500).json({ message: "Registrering feilet: " + error.message });
   }
