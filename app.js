@@ -2,6 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
 const blogRoutes = require('./routes/blogRoutes');
+const authroutes = require("./routes/authroutes");
 const {connectDB} = require('./dbhandler/handler');
 
 // express app
