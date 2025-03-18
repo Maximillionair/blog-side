@@ -32,6 +32,7 @@ app.get('/about', (req, res) => {
 
 // blog routes
 app.use('/blogs', blogRoutes);
+app.use("/auth", authroutes)
 
 // 404 page
 app.use((req, res) => {
