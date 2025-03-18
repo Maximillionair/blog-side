@@ -31,7 +31,7 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-app.get("/register", (req, res) => {
+app.get("/auth/register", (req, res) => {
   res.render("register", { title: 'Register' });
 });
 
