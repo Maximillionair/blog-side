@@ -31,9 +31,6 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'About' });
 });
 
-app.get("/auth/register", (req, res) => {
-  res.render("register", { title: 'Register' });
-});
 
 // blog routes
 app.use('/blogs', blogRoutes);
