@@ -32,7 +32,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.redirect("/auth");
+  res.render("register", { title: 'Register' });
 });
 
 // blog routes
