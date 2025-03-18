@@ -7,7 +7,7 @@ const user_register_get = (req, res) => {
   }
 
   const user_login_get = (req, res) => {
-    res.render('register', { title: 'Create a new user' });
+    res.render('login', { title: 'Login' });
   }
 const registerUser = async (req, res) => {
   try {
