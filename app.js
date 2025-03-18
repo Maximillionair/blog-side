@@ -32,7 +32,7 @@ app.get('/about', (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-  res.render("register");
+  res.render("/auth");
 });
 
 // blog routes
