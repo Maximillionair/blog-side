@@ -4,11 +4,12 @@ const bcrypt = require("bcrypt");
 
 const user_register_get = (req, res) => {
     res.render('register', { title: 'Create a new user' });
-  }
+  };
 
   const user_login_get = (req, res) => {
     res.render('login', { title: 'Login' });
-  }
+  };
+
 const registerUser = async (req, res) => {
   try {
     const { name, email, password,} = req.body;
@@ -18,7 +19,8 @@ const registerUser = async (req, res) => {
     }
     const user = new User({ name, email, password,});
     await user.save();
-    res.redirect("/login");
+    // res.redirect("/login");
+    user_login_get();
   } catch (error) {
     res.status(500).json({ message: "Registrering feilet: " + error.message });
   }
