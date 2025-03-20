@@ -18,6 +18,7 @@ const registerUser = async (req, res) => {
       return res.status(400).json({ message: "Email is already taken" });
     }
     const user = new User({ name, email, password,});
+    console.log(user);
     await user.save();
     res.redirect("/auth/login");
   } catch (error) {
@@ -45,7 +46,7 @@ const loginUser = async (req, res) => {
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
         res.cookie("token", token, { httpOnly: true });
 
-        console.log("Login successful");
+        console.log(`login succesful. ${user} logged in`);
         res.redirect("/");
     } catch (error) {
         console.error("Login error:", error);  // <- This will show the actual error in console
