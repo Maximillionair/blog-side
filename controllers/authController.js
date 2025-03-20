@@ -26,19 +26,33 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user || !(await bcrypt.compare(password, user.password))) {
-      return res.status(401).json({ message: "Feil innlogging" });
+    try {
+        const { email, password } = req.body;
+        console.log("Login attempt:", email);
+
+        const user = await User.findOne({ email });
+        if (!user) {
+            console.log("User not found");
+            return res.status(401).json({ message: "Feil innlogging" });
+        }
+
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            console.log("Incorrect password");
+            return res.status(401).json({ message: "Feil innlogging" });
+        }
+
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        res.cookie("token", token, { httpOnly: true });
+
+        console.log("Login successful");
+        res.redirect("/");
+    } catch (error) {
+        console.error("Login error:", error);  // <- This will show the actual error in console
+        res.status(500).json({ message: "Login error: " + error.message });
     }
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-    res.cookie("token", token, { httpOnly: true });
-    res.redirect("/");
-  } catch (error) {
-    res.status(500).json({ message: "Login error" });
-  }
 };
+
 
 module.exports = {
     user_register_get,
