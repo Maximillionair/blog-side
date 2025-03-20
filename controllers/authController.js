@@ -34,7 +34,7 @@ const loginUser = async (req, res) => {
     }
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.cookie("token", token, { httpOnly: true });
-    res.redirect("/");
+    res.redirect("/blogs");
   } catch (error) {
     res.status(500).json({ message: "Login error" });
   }
