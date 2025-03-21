@@ -34,7 +34,7 @@
     nav h1{
       font-size: 3em;
     }
-    nav p, nav a{
+    nav p, nav a, nav span{
       color: #777;
       font-weight: 300;
     }
