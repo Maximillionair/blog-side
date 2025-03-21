@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cookieParser = require('cookie-parser');
 const blogRoutes = require('./routes/blogRoutes');
 const authroutes = require("./routes/authroutes");
 const { authMiddleware } = require("./middleware/authMiddleware");
@@ -19,6 +20,7 @@ app.set('view engine', 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
+app.use(cookieParser());
 app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
