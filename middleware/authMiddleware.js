@@ -7,14 +7,14 @@ exports.authMiddleware = (req, res, next) => {
         jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
             if (!err) {
                 req.user = user;   // Make user available in backend routes
-                res.locals.user = user; // Make user available in EJS views
+                res.locals.user = { id: user.id, name: user.name } // make user available in views
             }
         });
     } else {
         res.locals.user = null; // Ensure navbar shows correct options
     }
     
-    next(); // Always move to next middleware, even if no token
+    next();
 };
 
 // Middleware for protected routes
