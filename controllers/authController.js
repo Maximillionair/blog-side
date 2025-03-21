@@ -1,6 +1,7 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const { requireAuth } = require("../middleware/authMiddleware");
 
 const user_register_get = (req, res) => {
     res.render('register', { title: 'Create a new user' });
@@ -53,11 +54,17 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: "Login error: " + error.message });
     }
 };
+const logout = (req, res) => {
+    res.clearCookie("token"); // Remove the token from cookies
+    res.redirect("/"); // Redirect to home page
+};
+
 
 
 module.exports = {
     user_register_get,
     registerUser,
     user_login_get,
-    loginUser
+    loginUser,
+    logout
 }

@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const path = require('path');
 const blogRoutes = require('./routes/blogRoutes');
 const authroutes = require("./routes/authroutes");
+const { authMiddleware } = require("./middleware/authMiddleware");
 const {connectDB} = require('./dbhandler/handler');
 
 // express app
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
   res.locals.path = req.path;
   next();
 });
+app.use(authMiddleware);
 
 // routes
 app.get('/', (req, res) => {
@@ -33,7 +35,6 @@ app.get('/about', (req, res) => {
 });
 
 
-// blog routes
 app.use('/blogs', blogRoutes);
 app.use("/auth", authroutes)
 

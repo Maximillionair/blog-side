@@ -1,4 +1,5 @@
 const Blog = require('../models/blog');
+const { requireAuth } = require("../middleware/authMiddleware");
 
 const blog_index = (req, res) => {
   Blog.find().sort({ createdAt: -1 })
