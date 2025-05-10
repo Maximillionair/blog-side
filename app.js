@@ -1,0 +1,59 @@
+require("dotenv").config();
+const express = require('express');
+const morgan = require('morgan');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const blogRoutes = require('./routes/blogRoutes');
+const authroutes = require("./routes/authroutes");
+const { authMiddleware } = require("./middleware/authMiddleware");
+const {connectDB} = require('./dbhandler/handler');
+
+// express app
+const app = express();
+
+// connect to mongodb & listen for requests
+
+// register view engine
+app.set('view engine', 'ejs');
+
+// middleware & static files
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use((req, res, next) => {
+  res.locals.path = req.path;
+  next();
+});
+app.use(authMiddleware);
+
+// routes
+app.get('/', (req, res) => {
+  res.redirect('/blogs');
+});
+
+app.get('/about', (req, res) => {
+  res.render('about', { title: 'About' });
+});
+
+
+app.use('/blogs', blogRoutes);
+app.use("/auth", authroutes)
+
+// 404 page
+app.use((req, res) => {
+  res.status(404).render('404', { title: '404' });
+});
+
+const PORT = process.env.PORT || 3500;
+  try {
+    connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server is running on http://localhost:${PORT}`)
+      console.log('hi, this worked! :)');
+    });
+
+  } catch (err) {
+    console.log('connect failed, error:', err);
+    prosses.exit(1);
+  };
